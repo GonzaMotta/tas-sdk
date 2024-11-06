@@ -6,6 +6,6 @@ func HelloWord() string {
 	return "Hello World"
 }
 
-func HelloYou(name string) string {
+func HelloYou(name string) {
 	log.Printf("Hello %s", name)
 }
