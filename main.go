@@ -1,11 +1,11 @@
-package main
+package sdkImed
 
 import "log"
 
-func HelloWord() {
-	log.Fatalf("Hello World")
+func HelloWord() string {
+	return "Hello World"
 }
 
-func HelloYou(name string) {
+func HelloYou(name string) string {
 	log.Printf("Hello %s", name)
 }
