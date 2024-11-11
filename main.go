@@ -20,14 +20,18 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	helpers.CustomLog("success", "Creando auditoria")
-	auditID := CreateAudit()
+	/*
 
-	log.Println("auditoria id : ", auditID)
+		helpers.CustomLog("success", "Creando auditoria")
+		auditID := CreateAudit()
 
-	SaveTraceV2("Desarrollo servicio de prueba skd", "Datos de prueba", auditID)
+		log.Println("auditoria id : ", auditID)
 
+		SaveTraceV2("Desarrollo servicio de prueba skd", "Datos de prueba", auditID)
+
+	*/
 	helpers.CustomLog("success", "Sdk inicio con éxito")
+
 }
 
 func CreateAudit() string {
