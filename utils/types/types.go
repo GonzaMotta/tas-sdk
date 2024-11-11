@@ -18,6 +18,7 @@ type Trace struct {
 	Audit       HelperAudit `bson:"audit" json:"audit"`
 	ServiceName string      `bson:"service_name" json:"service_name"`
 	Data        string      `bson:"data" json:"data"`
+	TypeValue   string      `bson:"TypeValue" json:"TypeValue"`
 }
 
 // Responses
