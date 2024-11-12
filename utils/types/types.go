@@ -14,11 +14,11 @@ type HelperAudit struct {
 }
 
 type Trace struct {
-	ID          string      `bson:"_id,omitempty" json:"id"`
-	Audit       HelperAudit `bson:"audit" json:"audit"`
-	ServiceName string      `bson:"service_name" json:"service_name"`
-	Data        string      `bson:"data" json:"data"`
-	TypeValue   string      `bson:"TypeValue" json:"TypeValue"`
+	ID          string `bson:"_id,omitempty" json:"id"`
+	Audit       string `bson:"audit_id" json:"audit_id"`
+	ServiceName string `bson:"service_name" json:"service_name"`
+	Data        string `bson:"data" json:"data"`
+	TypeValue   string `bson:"typeValue" json:"typeValue"`
 }
 
 // Responses

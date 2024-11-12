@@ -58,10 +58,8 @@ func SaveStringTrace(serviceName string, data string, auditID string) string {
 	trace := types.Trace{
 		ServiceName: serviceName,
 		Data:        data,
-		Audit: types.HelperAudit{
-			ID: auditID,
-		},
-		TypeValue: "string",
+		Audit:       auditID,
+		TypeValue:   "string",
 	}
 
 	jsonData, err := json.Marshal(trace)
@@ -100,10 +98,8 @@ func SaveObjectTrace(serviceName string, data interface{}, auditID string) strin
 	trace := types.Trace{
 		ServiceName: serviceName,
 		Data:        string(jsonString),
-		Audit: types.HelperAudit{
-			ID: auditID,
-		},
-		TypeValue: "objecto",
+		Audit:       auditID,
+		TypeValue:   "objecto",
 	}
 
 	jsonData, err := json.Marshal(trace)
