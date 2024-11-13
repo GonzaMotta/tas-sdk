@@ -12,25 +12,7 @@ import (
 
 var url string = "http://localhost:3010"
 
-/*
-func init() {
-	helpers.CustomLog("success", "Iniciando SDK")
-	err := godotenv.Load(".env")
-
-	url := os.Getenv("API_URL")
-
-	log.Println("url", url)
-
-	if err != nil {
-		log.Fatal("Error loading .env file", err)
-	}
-
-	helpers.CustomLog("success", "Sdk inicio con éxito")
-}
-
-*/
-
-func CreateAudit() string {
+func CreateAudit() (string, error) {
 
 	response, err := http.Post(url+"/audit", "application/json", nil)
 
@@ -46,14 +28,16 @@ func CreateAudit() string {
 
 	if err != nil {
 		helpers.CustomLog("error", "Error al decodificar el body")
+
+		return "", err
 	}
 
 	log.Println(auditResponse.ID)
 
-	return auditResponse.ID
+	return auditResponse.ID, nil
 }
 
-func SaveStringTrace(serviceName string, data string, auditID string) string {
+func SaveStringTrace(serviceName string, data string, auditID string) (string, error) {
 
 	trace := types.Trace{
 		ServiceName: serviceName,
@@ -65,12 +49,16 @@ func SaveStringTrace(serviceName string, data string, auditID string) string {
 	jsonData, err := json.Marshal(trace)
 	if err != nil {
 		log.Fatal("Error al convertir a JSON:", err)
+
+		return "", err
 	}
 
 	response, err := http.Post(url+"/trace", "application/json", bytes.NewBuffer(jsonData))
 
 	if err != nil {
 		helpers.CustomLog("error", "Error al guardar trace")
+
+		return "", err
 	}
 
 	defer response.Body.Close()
@@ -81,18 +69,22 @@ func SaveStringTrace(serviceName string, data string, auditID string) string {
 
 	if err != nil {
 		helpers.CustomLog("error", "Error al decodificar el body")
+
+		return "", err
 	}
 
-	return traceResponse.ID
+	return traceResponse.ID, nil
 
 }
 
-func SaveObjectTrace(serviceName string, data interface{}, auditID string) string {
+func SaveObjectTrace(serviceName string, data interface{}, auditID string) (string, error) {
 
 	jsonString, err := json.Marshal(data)
 
 	if err != nil {
 		log.Fatal("Error al convertir a JSON:", err)
+
+		return "", err
 	}
 
 	trace := types.Trace{
@@ -105,12 +97,16 @@ func SaveObjectTrace(serviceName string, data interface{}, auditID string) strin
 	jsonData, err := json.Marshal(trace)
 	if err != nil {
 		log.Fatal("Error al convertir a JSON:", err)
+
+		return "", err
 	}
 
 	response, err := http.Post(url+"/trace", "application/json", bytes.NewBuffer(jsonData))
 
 	if err != nil {
 		helpers.CustomLog("error", "Error al guardar trace")
+
+		return "", err
 	}
 
 	defer response.Body.Close()
@@ -121,8 +117,10 @@ func SaveObjectTrace(serviceName string, data interface{}, auditID string) strin
 
 	if err != nil {
 		helpers.CustomLog("error", "Error al decodificar el body")
+
+		return "", err
 	}
 
-	return traceResponse.ID
+	return traceResponse.ID, nil
 
 }
