@@ -1,60 +1,69 @@
-# Proyecto Go con TAS SDK
+# Go Project with TAS SDK
 
-Este proyecto utiliza el paquete `tas-sdk` para realizar auditorías y guardar trazas en un servicio. A continuación, se explican los pasos para descargar, renombrar e implementar las funciones básicas de auditoría y trazabilidad.
+This project uses the `tas-sdk` package to perform audits and save traces in a service. Below are the steps to download, rename, and implement the basic audit and trace functions.
 
-## Requisitos previos
+## Prerequisites
 
-- Tener instalado Go en tu sistema.
-- Contar con acceso a GitHub y la capacidad de descargar paquetes desde él.
+- Go must be installed on your system.
+- Have access to GitHub and the ability to download packages from it.
 
-## Instalación
+## Installation
 
-1. Descarga el paquete `tas-sdk` ejecutando el siguiente comando:
+1. Download the `tas-sdk` package by running the following command:
 
     ```bash
     go get github.com/GonzaMotta/tas-sdk
     ```
 
-2. Renombra el paquete en tu proyecto para facilitar su uso. Esto se hace agregando un alias en tu archivo de código Go:
+2. Rename the package in your project to make it easier to use. This is done by adding an alias in your Go code file:
 
     ```go
     import sdkTas "github.com/GonzaMotta/tas-sdk"
     ```
 
-## Uso
+## Usage
 
-### Crear una Auditoría
+### Create an Audit
 
-Para crear una nueva auditoría, usa la función `CreateAudit` proporcionada por el SDK. Este método devuelve un `auditId` único que podrás utilizar para asociarlo a otras operaciones de seguimiento.
+To create a new audit, use the `CreateAudit` function provided by the SDK. This method returns a unique `auditId` that you can use to associate with other tracking operations.
 
 ```go
-auditId := sdkTas.CreateAudit() // 673228f4f0579b84116e0b6f
+auditId, err := sdkTas.CreateAudit() // Example auditId: 673228f4f0579b84116e0b6f
+
+if err != nil {
+    log.Println("Error creating audit", err)
+}
+```
+
+### Save a String Trace
+
+Once you have an auditId, you can save a trace in your system using SaveStringTrace. This function takes three parameters: a description of the trace, the service name, and the auditId.
+
+```go
+traceId, err := sdkTas.SaveStringTrace("Your service name here", "Here your data", auditId) // returns trace id
+
+if err != nil {
+    log.Println("Error creating audit", err)
+}
 ```
 
 
-### Guardar una Traza tipo string 
+### Save an Object Trace
 
-Una vez que tengas un auditId, puedes guardar una traza en tu sistema utilizando SaveTraceV2. Esta función toma tres parámetros: una descripción de la traza, el nombre del servicio y el auditId.
-
-```go
-data := "here your data in string format " 
-sdkTas.SaveStringTrace("Servicio fake de api", data, auditId) // return trace id 
-```
-
-
-### Guardar una Traza tipo Objeto 
-
-Una vez que tengas un auditId, puedes guardar una traza en tu sistema utilizando SaveTraceV2. Esta función toma tres parámetros: una descripción de la traza, el nombre del servicio y el auditId.
+Once you have an auditId, you can save a trace in your system using SaveObjectTrace. This function takes three parameters: a description of the trace, the service name, and the auditId
 
 ```go
-service := "nombre_del_servicio" 
 
-objecto := map[string]interface{}{
-		"campo_!":   "value-1",
-		"campo_2":     1,
-		"campo_3": "value_3",
-	}
+object := map[string]interface{}{
+    "field_1": "value-1",
+    "field_2": 1,
+    "field_3": "value_3",
+}
 
-sdkTas.SaveObjectTrace("Servicio fake de api", data interface{}, auditId) // return trace id 
+objectTrace, err := sdkTas.SaveObjectTrace("Your service name here", object, auditId) // returns trace id
+
+if err != nil {
+    log.Println("Error saving trace", err)
+}
 ```
 
