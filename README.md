@@ -37,33 +37,14 @@ if err != nil {
 
 ### Save a String Trace
 
-Once you have an auditId, you can save a trace in your system using SaveStringTrace. This function takes three parameters: a description of the trace, the service name, and the auditId.
+Once you start the CreateAudit() function, you can save the information you require in our system, using SaveTrace() review the example below. 
+
+###  Important, the auditId parameter is optional. If you do not pass it any value, by default it will take the id created in the CreateAudit() function
 
 ```go
-traceId, err := sdkTas.SaveStringTrace("Your service name here", "Here your data", auditId) // returns trace id
+traceId, err := sdkTas.SaveTrace("Your service name here", "Here your data", auditId ...string ) // returns trace id
 
 if err != nil {
     log.Println("Error creating audit", err)
 }
 ```
-
-
-### Save an Object Trace
-
-Once you have an auditId, you can save a trace in your system using SaveObjectTrace. This function takes three parameters: a description of the trace, the service name, and the auditId
-
-```go
-
-object := map[string]interface{}{
-    "field_1": "value-1",
-    "field_2": 1,
-    "field_3": "value_3",
-}
-
-objectTrace, err := sdkTas.SaveObjectTrace("Your service name here", object, auditId) // returns trace id
-
-if err != nil {
-    log.Println("Error saving trace", err)
-}
-```
-
