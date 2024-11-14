@@ -48,3 +48,35 @@ if err != nil {
     log.Println("Error creating audit", err)
 }
 ```
+
+### complete example
+```go
+
+package main
+
+import (
+	"log"
+
+	sdkTas "github.com/GonzaMotta/tas-sdk"
+)
+
+
+func main() {
+
+	_, err := sdkTas.CreateAudit()
+
+	if err != nil {
+		log.Println(err)
+	}
+
+	trace, err := sdkTas.SaveTrace("My service or process name", "Hi world!")
+
+	if err != nil {
+		log.Println(err)
+	}
+
+	log.Println("trade id: ", trace)
+
+}
+
+```
