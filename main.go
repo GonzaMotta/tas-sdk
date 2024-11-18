@@ -11,7 +11,7 @@ import (
 	"github.com/GonzaMotta/tas-sdk/utils/types"
 )
 
-var url string = "http://localhost:3010"
+var url string = "https://api-pre.imedlife.com/tas-core-qa"
 
 var globalAuditId types.CreateAuditResponse
 
